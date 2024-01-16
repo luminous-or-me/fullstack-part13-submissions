@@ -12,14 +12,10 @@ router.get("/", async (req, res) => {
   return res.json(blogs);
 });
 
-router.post("/", async (req, res) => {
-  try {
-    const blog = await Blog.create(req.body);
+router.post("/", async (req, res, next) => {
+  const blog = await Blog.create(req.body);
 
-    return res.status(201).json(blog);
-  } catch (error) {
-    return res.status(400).json({ error });
-  }
+  return res.status(201).json(blog);
 });
 
 router.delete("/:id", blogFinder, async (req, res) => {
@@ -30,7 +26,7 @@ router.delete("/:id", blogFinder, async (req, res) => {
   return res.status(204).end();
 });
 
-router.put("/:id", blogFinder, async (req, res) => {
+router.put("/:id", blogFinder, async (req, res, next) => {
   if (req.blog) {
     req.blog.likes = req.body.likes;
 
