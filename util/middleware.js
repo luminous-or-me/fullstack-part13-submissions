@@ -1,3 +1,8 @@
+const blogFinder = async (req, res, next) => {
+  req.blog = await Blog.findByPk(req.params.id);
+  next();
+};
+
 const errorHandler = (error, req, res, next) => {
   console.error(error);
 
@@ -12,4 +17,4 @@ const errorHandler = (error, req, res, next) => {
   next(error);
 };
 
-module.exports = { errorHandler };
+module.exports = { blogFinder, errorHandler };

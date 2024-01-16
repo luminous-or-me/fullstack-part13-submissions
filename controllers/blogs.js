@@ -1,10 +1,6 @@
 const router = require("express").Router();
 const { Blog } = require("../models");
-
-const blogFinder = async (req, res, next) => {
-  req.blog = await Blog.findByPk(req.params.id);
-  next();
-};
+const { blogFinder } = require("../util/middleware");
 
 router.get("/", async (req, res) => {
   const blogs = await Blog.findAll();
